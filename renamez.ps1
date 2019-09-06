@@ -1,17 +1,12 @@
 #make sure we have localized path for ini file
 $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
 
-
+#not working still
+#$lookupTable = Import-PowerShellDataFile "$scriptDir\renamez.ini"
 
 #string table for replacements
 #left side is .Value and needs double blackslashes  \\\\lwpparsdxr01\\data
 #right side is .Key and does not need double backslashes   \\10.9.60.71\aus360wp01
-#$lookupTable = Import-PowerShellDataFile "$scriptDir\renamez.ini"
-
-#Write-Host $lookupTable
-
-
-
 $lookupTable = @{
 
 #lvservers
@@ -70,7 +65,12 @@ $filePath = $args[0]
 
 #if no folder dropped set to c:\users\usernamehere\downloads\temp
 IF ($filePath -eq $null)
-{$filePath = "$env:userprofile\Downloads\temp"}
+{
+	Write-Host "Drag a folder onto the .cmd file to search through the provided folder and all"
+	Write-Host "subfolders and rename the paths for all .ord, .nwp, and .lst files in the directory"
+	Write-Host "If no folder is dropped the default search location is c:\users\USERNAME\Downloads\temp"
+	$filePath = "$env:userprofile\Downloads\temp"
+}
 
 $filePath = "$filePath\*"
 
